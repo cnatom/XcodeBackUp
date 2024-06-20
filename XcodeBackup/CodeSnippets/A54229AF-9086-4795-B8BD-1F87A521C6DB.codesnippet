@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>template_viewController_m_injected</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>#import &lt;UIKit/UIKit.h&gt;
+
+@interface ViewController : UIViewController
+
+@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UIButton *button;
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+#if DEBUG
+    [[NSBundle bundleWithPath:@"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"] load];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(injected)
+                                                 name:@"INJECTION_BUNDLE_NOTIFICATION"
+                                               object:nil];
+#endif
+    // 在这里做视图加载后的初始化工作
+    NSLog(@"viewDidLoad");
+    
+
+    
+    [self setupViews];
+    [self setupConstraints];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 视图将要出现时的操作
+    NSLog(@"viewWillAppear");
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    // 视图已经出现时的操作
+    NSLog(@"viewDidAppear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    // 视图将要消失时的操作
+    NSLog(@"viewWillDisappear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    // 视图已经消失时的操作
+    NSLog(@"viewDidDisappear");
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // 收到内存警告时的操作
+    NSLog(@"didReceiveMemoryWarning");
+}
+
+#pragma mark - Setup Methods
+
+- (void)setupViews {
+    // 初始化并配置标签
+    self.label = [[UILabel alloc] init];
+    self.label.text = @"Hello, World!";
+    self.label.textColor = [UIColor blackColor];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    self.label.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.label];
+    
+    // 初始化并配置按钮
+    self.button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.button setTitle:@"Click Me" forState:UIControlStateNormal];
+    [self.button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.button.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.button];
+}
+
+- (void)setupConstraints {
+    // 使用Auto Layout约束布局子视图
+    [NSLayoutConstraint activateConstraints:@[
+        [self.label.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [self.label.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+        
+        [self.button.topAnchor constraintEqualToAnchor:self.label.bottomAnchor constant:20],
+        [self.button.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]
+    ]];
+}
+
+#pragma mark - Action Methods
+
+- (void)buttonClicked:(UIButton *)sender {
+    self.label.text = @"Button Clicked!";
+    NSLog(@"Button was clicked");
+}
+
+#pragma mark - inject热重载
+
+#if DEBUG
+- (void)injected {
+    // 重新加载UI或更新逻辑
+    [self setupViews];
+}
+#endif
+
+@end
+
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>A54229AF-9086-4795-B8BD-1F87A521C6DB</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>ViewController.m热重载模板</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

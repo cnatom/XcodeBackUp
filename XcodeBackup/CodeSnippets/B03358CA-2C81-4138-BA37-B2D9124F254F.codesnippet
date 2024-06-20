@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>template_appDelegate_m</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>#import "AppDelegate.h"
+
+@implementation AppDelegate
+
+// 应用程序完成启动后的初始化设置
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+#if DEBUG
+   // iOS
+   [[NSBundle bundleWithPath:@"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"] load];
+
+   // 同时还支持 tvOS 和 MacOS，配置时只需要在 /Applications/InjectionIII.app/Contents/Resources/ 目录下找到对应的 bundle 文件,替换路径即可
+#endif
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    // 设置根视图控制器
+    UIViewController *rootViewController = [[UIViewController alloc] init];
+    self.window.rootViewController = rootViewController;
+    
+    [self.window makeKeyAndVisible];
+    
+    return YES;
+}
+
+// 进入非活动状态
+- (void)applicationWillResignActive:(UIApplication *)application {
+    NSLog(@"应用程序将要进入非活动状态");
+}
+
+// 进入后台
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    NSLog(@"应用程序已进入后台");
+}
+
+// 将要进入前台
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    NSLog(@"应用程序将要进入前台");
+}
+
+// 已经变为活动状态
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"应用程序已变为活动状态");
+}
+
+// 即将终止
+- (void)applicationWillTerminate:(UIApplication *)application {
+    NSLog(@"应用程序即将终止");
+}
+
+@end
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B03358CA-2C81-4138-BA37-B2D9124F254F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>AppDelegate.m模板</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
